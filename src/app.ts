@@ -1,28 +1,55 @@
 import express from 'express'
+import bodyParser from 'body-parser'
+import { Employee } from './models/employee'
+import { registerEmployee } from './controllers'
 
 const app = express()
 
-app.get('/healthcheck', (req, res, next) => {
-    const hrend = process.hrtime()
-    const timestamp = new Date()
-    const responseTimeInSeconds = Number(hrend[0] + (hrend[1] / Math.pow(
-        10,
-        9,
-    ))).toFixed(3)
-    
-    const response = {
-        success: 'OK',
-        data: {
-            upTimeInSeconds: process.uptime().toFixed(3),
-            responseTimeInSeconds,
-            message: 'OK',
-            timestamp,
-            date: timestamp.toUTCString(),
-            version: process.env.DOCKER_IMAGE_VERSION || 'N/A',
-        },
-    }
+app.use(bodyParser.json())
 
-    res.status(200).json(response)
+app.get('/healthcheck', (_req, res) => {
+    try {
+        const hrend = process.hrtime()
+        const timestamp = new Date()
+        const responseTimeInSeconds = Number(hrend[0] + (hrend[1] / Math.pow(
+            10,
+            9,
+        ))).toFixed(3)
+        
+        const response = {
+            success: 'OK',
+            data: {
+                upTimeInSeconds: process.uptime().toFixed(3),
+                responseTimeInSeconds,
+                message: 'OK',
+                timestamp,
+                date: timestamp.toUTCString(),
+                version: process.env.DOCKER_IMAGE_VERSION || 'N/A',
+            },
+        }
+        res.status(200).json(response)
+    } catch (err) {
+        const response = {
+            success: false,
+            data: {
+                upTimeInSeconds: process.uptime().toFixed(3),
+                message: err,
+                version: process.env.DOCKER_IMAGE_VERSION || 'N/A',
+            }
+        }
+        res.status(res.statusCode).json(response)
+    }
+})
+
+app.post('/employee', (req, res) => {
+    console.log(req)
+    try {
+        const employee: Omit<Employee, 'id'> = req.body.employee
+        const response = registerEmployee(employee)
+        res.status(201).json(response)
+    } catch (err) {
+        res.status(res.statusCode).json('Failed to register the employee')
+    }
 })
 
 export default app
