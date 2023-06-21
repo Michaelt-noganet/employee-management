@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  employee-management-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: employee-management-app
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    environment:
+      - .env
+    

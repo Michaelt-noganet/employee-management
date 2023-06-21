@@ -1,0 +1,31 @@
+{
+    "emeraldwalk.runonsave": {
+        "autoClearConsole": true,
+        "commands": []
+    },
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "git.ignoreLimitWarning": true,
+    "typescript.tsserver.log": "verbose",
+    "eslint.workingDirectories": [
+        { "pattern": "../src/*/" }
+    ],
+    "eslint.enable": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true
+    },
+    "eslint.validate": [
+        "typescript"
+    ],
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/node_modules/*/**": true,
+        "**/.hg/store/**": true,
+        "**/packages/**/build/*": true
+      },
+    "debug.javascript.usePreview": true,
+    "debug.extensionHost.useV3": true,
+    "hack.remote.enabled": true,
+    "hack.remote.type": "docker",
+    "hack.trace.server": "verbose"
+}
