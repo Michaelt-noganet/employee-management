@@ -1,0 +1,10 @@
+{
+  "name": "employee-management",
+  "version": "1.0.0",
+  "description": "keep a list of employees",
+  "main": "index.js",
+  "repository": "https://github.com/Michaelt-noganet/employee-management.git",
+  "author": "Michael Touboul",
+  "license": "MIT",
+  "private": true
+}
