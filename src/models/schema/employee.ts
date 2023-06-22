@@ -7,7 +7,7 @@ import { EMPLOYEMENT_STATUS } from '../employee/employement-status'
 export const employeeSchema = joi.object().keys({
     id: joi
         .string()
-        .optional(),
+        .required(),
     first_name: joi
         .string()
         .required(),

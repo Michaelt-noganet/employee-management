@@ -4,7 +4,7 @@ import { GENDER } from "./gender"
 import { POSITION } from "./position"
 
 export interface BaseEmployee {
-    id?: string,
+    id: string,
     first_name: string,
     last_name: string,
     citizen_id: string,

@@ -1,13 +1,12 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import { Employee } from './models/employee'
-import { registerEmployee } from './controllers'
-import { employeeSchema } from './models/schema/employee'
+import router from './routes/router'
 
 const app = express()
 
 app.use(bodyParser.json())
 
+// healthcheck
 app.get('/healthcheck', (_req, res) => {
     try {
         const hrend = process.hrtime()
@@ -42,19 +41,7 @@ app.get('/healthcheck', (_req, res) => {
     }
 })
 
-app.post('/employee', (req, res) => {
-    try {
-        const employee: Omit<Employee, 'id'> = req.body.employee
-        const result = employeeSchema.validate(employee)
-        const { value, error } = result
-        if (error) {
-            res.status(422).json(error.message)
-        }
-        const response = registerEmployee(value)
-        res.status(201).json(response)
-    } catch (err) {
-        res.status(res.statusCode).json('Failed to register the employee')
-    }
-})
+// CRUD logic is in the router
+app.use(router)
 
 export default app

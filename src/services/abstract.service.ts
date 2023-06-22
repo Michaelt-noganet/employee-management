@@ -6,7 +6,7 @@ export abstract class AbstractService {
     protected abstract message(employeeFirstName: string, employeeLastName: string): string
     constructor() {}
 
-    public apiAction(employee: Employee | BaseEmployee): ApiResponse {
+    public apply(employee: Employee | BaseEmployee): ApiResponse {
         const message = this.message(employee.first_name, employee.last_name)
         try {
             return {
