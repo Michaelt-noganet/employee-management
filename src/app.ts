@@ -2,6 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import { Employee } from './models/employee'
 import { registerEmployee } from './controllers'
+import { employeeSchema } from './models/schema/employee'
 
 const app = express()
 
@@ -42,10 +43,14 @@ app.get('/healthcheck', (_req, res) => {
 })
 
 app.post('/employee', (req, res) => {
-    console.log(req)
     try {
         const employee: Omit<Employee, 'id'> = req.body.employee
-        const response = registerEmployee(employee)
+        const result = employeeSchema.validate(employee)
+        const { value, error } = result
+        if (error) {
+            res.status(422).json(error.message)
+        }
+        const response = registerEmployee(value)
         res.status(201).json(response)
     } catch (err) {
         res.status(res.statusCode).json('Failed to register the employee')
