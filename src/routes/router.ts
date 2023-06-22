@@ -1,8 +1,12 @@
 import express from 'express'
-import { registerEmployee } from '../controllers'
+import { createEmployee, readAllEmployee, readOneEmployee } from '../controllers'
 
 const router = express.Router()
 
-router.post('/employee', registerEmployee)
+router.post('/employee', createEmployee)
+
+router.get('/employees', readAllEmployee)
+
+router.get('/employee/:id', readOneEmployee)
 
 export default router

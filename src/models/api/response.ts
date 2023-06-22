@@ -5,10 +5,11 @@ export interface ApiResponse {
     status: string,
     action: METHODS
     data: {
-        employee_id: string,
+        employee_id: string[],
         message: string,
         date: Date,
         employee?: Employee
+        employees?: Employee[]
         error?: any
     }
 }

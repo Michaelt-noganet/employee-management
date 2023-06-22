@@ -9,7 +9,7 @@ export const formatId = (employeeFirstName: string, employeeLastName: string, ci
     return `${ employeeFirstName.toLowerCase() }${ employeeLastName[0].toLocaleLowerCase() }#${ new Date().getTime() }#${ citizenId }`
 }
 
-export const registerEmployee = (req: Request<any>, res: Response<any>) => {
+export const createEmployee = (req: Request<any>, res: Response<any>) => {
     try {
         const employee: Omit<Employee, 'id'> = req.body.employee
         const id = formatId(employee.first_name, employee.last_name, employee.citizen_id)
