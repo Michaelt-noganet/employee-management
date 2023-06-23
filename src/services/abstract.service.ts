@@ -1,3 +1,4 @@
+import { employeeSchema } from '../models/schema/employee'
 import { ApiResponse, METHODS } from '../models/api'
 import { BaseEmployee, Employee } from '../models/employee'
 
@@ -98,6 +99,44 @@ export abstract class AbstractService {
                 data: {
                     employee_id: [ id ],
                     message: this.message(id),
+                    date: new Date()
+                }
+            }
+        } catch (error) {
+            return {
+                status: 'ERROR',
+                action: this.method,
+                data: {
+                    employee_id: [ 'N/A' ],
+                    message: `Action failed: ${ error}`,
+                    date: new Date()
+                }
+            }
+        }
+    }
+
+    public updateOne(employees: Employee[], id: string, update: Record<string, Employee>): ApiResponse {
+        try {
+            const employee: Employee[] = employees.filter(employee => employee.id === id)
+            if (!employee.length) {
+                throw `Employee: ${ id } not found`
+            }
+            const newEmployee: Employee = {
+                ...employee[0],
+                [Object.keys(update)[0]]: Object.values(update)[0]
+            }
+            const result = employeeSchema.validate(newEmployee)
+            const { error } = result
+            if (error) {
+                throw `${ error.message }`
+            }
+            return {
+                status: 'SUCCESS',
+                action: this.method,
+                data: {
+                    employee_id: [ id ],
+                    employee: result.value,
+                    message: this.message(newEmployee.first_name, newEmployee.last_name),
                     date: new Date()
                 }
             }

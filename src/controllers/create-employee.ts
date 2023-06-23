@@ -5,20 +5,20 @@ import { Request, Response } from 'express'
 
 const postService = new PostService()
 
-export const formatId = (employeeFirstName: string, employeeLastName: string, citizenId: string): string => {
-    return `${ employeeFirstName.toLowerCase() }${ employeeLastName[0].toLocaleLowerCase() }#${ new Date().getTime() }#${ citizenId }`
+export const formatId = (employeeFirstName: string, employeeLastName: string): string => {
+    return `${ employeeFirstName.toLowerCase() }${ employeeLastName[0].toLowerCase() }`
 }
 
 export const createEmployee = (req: Request<any>, res: Response<any>) => {
     try {
         const employee: Omit<Employee, 'id'> = req.body.employee
-        const id = formatId(employee.first_name, employee.last_name, employee.citizen_id)
+        const id = formatId(employee.first_name, employee.last_name)
         const employeeWithId: Employee = {
             id,
             ...employee
         }
         const result = employeeSchema.validate(employeeWithId)
-        const { value, error } = result
+        const { error } = result
         if (error) {
             res.status(422).json(error.message)
         }

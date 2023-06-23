@@ -32,7 +32,7 @@ export const employees: Employee[] = [
         gender: GENDER.MALE,
         position: POSITION.DISHWASHER,
         date_of_joining: new Date('06/22/2023'),
-        salary: 200000000000000000,
+        salary: 20000,
         employement_status: EMPLOYEMENT_STATUS.FULL_TIME,
         supervisor: 'Sarah Netanyahu',
         emergency_contact: 'Sarah Netanyahu',
