@@ -7,8 +7,8 @@ export abstract class AbstractService {
     constructor() {}
 
     public apply(employee: Employee | BaseEmployee): ApiResponse {
-        const message = this.message(employee.first_name, employee.last_name)
         try {
+            const message = this.message(employee.first_name, employee.last_name)
             return {
                 status: 'SUCCESS',
                 action: this.method,
@@ -57,15 +57,18 @@ export abstract class AbstractService {
     }
 
     public getOne(employees: Employee[], id: string): ApiResponse {
-        const employee: Employee[] = employees.filter(employee => employee.id === id)
         try {
+            const employee: Employee[] = employees.filter(employee => employee.id === id)
+            if (!employee.length) {
+                throw `Employee: ${ id } not found`
+            }
             return {
                 status: 'SUCCESS',
                 action: this.method,
                 data: {
-                    employee_id: !!employee.length ? employee.map(employee => employee.id) : [ id ],
+                    employee_id: employee.map(employee => employee.id),
                     employee: employee[0],
-                    message: !!employee.length ? this.message() : `Employee: ${ id } not found`,
+                    message: this.message(),
                     date: new Date()
                 }
             }
@@ -75,7 +78,36 @@ export abstract class AbstractService {
                 action: this.method,
                 data: {
                     employee_id: [ 'N/A' ],
-                    message: 'Action failed',
+                    message: `Action failed: ${ error }`,
+                    date: new Date()
+                }
+            }
+        }
+    }
+
+    public deleteOne(employees: Employee[], id: string): ApiResponse {
+        try {
+            const index = employees.findIndex(employee => employee.id === id)
+            if (index === -1) {
+                throw `Employee: ${ id } not found`
+            }
+            employees.splice(index, 1)
+            return {
+                status: 'SUCCESS',
+                action: this.method,
+                data: {
+                    employee_id: [ id ],
+                    message: this.message(id),
+                    date: new Date()
+                }
+            }
+        } catch (error) {
+            return {
+                status: 'ERROR',
+                action: this.method,
+                data: {
+                    employee_id: [ 'N/A' ],
+                    message: `Action failed: ${ error}`,
                     date: new Date()
                 }
             }

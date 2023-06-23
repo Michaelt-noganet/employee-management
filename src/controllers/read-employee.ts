@@ -1,5 +1,3 @@
-import { employeeSchema } from '../models/schema/employee'
-import { Employee } from '../models/employee'
 import { GetService } from '../services'
 import { Request, Response } from 'express'
 import { employees } from '../fixtures/employees'
