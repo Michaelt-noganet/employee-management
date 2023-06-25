@@ -1,8 +1,8 @@
 import joi from 'joi'
-import { GENDER } from '../employee/gender'
-import { POSITION } from '../employee/position'
-import { DEPARTEMENT } from '../employee/departement'
-import { EMPLOYEMENT_STATUS } from '../employee/employement-status'
+import { GENDER } from '../types/employee/gender'
+import { POSITION } from '../types/employee/position'
+import { DEPARTEMENT } from '../types/employee/departement'
+import { EMPLOYMENT_STATUS } from '../types/employee/employement-status'
 
 export const employeeSchema = joi.object().keys({
     id: joi
@@ -47,9 +47,9 @@ export const employeeSchema = joi.object().keys({
     salary: joi
         .number()
         .optional(),
-    employement_status: joi
+    employment_status: joi
         .string()
-        .valid(...Object.values(EMPLOYEMENT_STATUS))
+        .valid(...Object.values(EMPLOYMENT_STATUS))
         .optional(),
     supervisor: joi
         .string()

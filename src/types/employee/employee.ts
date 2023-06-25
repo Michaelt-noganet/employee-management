@@ -1,5 +1,5 @@
 import { DEPARTEMENT } from "./departement"
-import { EMPLOYEMENT_STATUS } from "./employement-status"
+import { EMPLOYMENT_STATUS } from "./employement-status"
 import { GENDER } from "./gender"
 import { POSITION } from "./position"
 
@@ -19,7 +19,7 @@ export interface Employee extends BaseEmployee {
     departement?: DEPARTEMENT
     date_of_joining?: Date,
     salary?: number,
-    employement_status?: EMPLOYEMENT_STATUS,
+    employment_status?: EMPLOYMENT_STATUS,
     supervisor?: string,
     emergency_contact?: string,
     work_schedule?: string,

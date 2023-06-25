@@ -1,11 +1,11 @@
-import { GENDER } from '../models/employee/gender'
-import { Employee } from '../models/employee'
-import { POSITION } from '../models/employee/position'
-import { EMPLOYEMENT_STATUS } from '../models/employee/employement-status'
+import { GENDER } from '../types/employee/gender'
+import { Employee } from '../types/employee'
+import { POSITION } from '../types/employee/position'
+import { EMPLOYMENT_STATUS } from '../types/employee/employement-status'
 
 export const employees: Employee[] = [
     {
-        id: 'michaelt',
+        id: '6fca1a66-7c26-4924-9006-68d04eeec9b2',
         first_name: 'Michael',
         last_name: 'Touboul',
         citizen_id: '327462529',
@@ -16,13 +16,13 @@ export const employees: Employee[] = [
         position: POSITION.EXPEDITOR,
         date_of_joining: new Date('06/22/2023'),
         salary: 20000,
-        employement_status: EMPLOYEMENT_STATUS.FULL_TIME,
+        employment_status: EMPLOYMENT_STATUS.FULL_TIME,
         supervisor: 'My wife',
         emergency_contact: '0522982072',
         work_schedule: '5 hours'
     },
     {
-        id: 'binyaminn',
+        id: 'f90773c7-a90b-4f24-bcf6-036477e521c5',
         first_name: 'Benjamin',
         last_name: 'Netanyahu',
         citizen_id: '123456789',
@@ -33,7 +33,7 @@ export const employees: Employee[] = [
         position: POSITION.DISHWASHER,
         date_of_joining: new Date('06/22/2023'),
         salary: 20000,
-        employement_status: EMPLOYEMENT_STATUS.FULL_TIME,
+        employment_status: EMPLOYMENT_STATUS.FULL_TIME,
         supervisor: 'Sarah Netanyahu',
         emergency_contact: 'Sarah Netanyahu',
         work_schedule: '0.5 hours'

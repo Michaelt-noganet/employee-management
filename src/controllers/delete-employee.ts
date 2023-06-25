@@ -7,9 +7,9 @@ const deleteService = new DeleteService()
 
 export const deleteOneEmployee = (req: Request<any>, res: Response<any>) => {
     try {
-        const id: string = req.params.id
-        const response = deleteService.deleteOne(employees, id)
-        res.status(200).json(response)
+        const ids: string[] | any = req.query.ids
+        const response = deleteService.apply({}, ids)
+        res.status(response.status_code || res.statusCode).json(response)
     } catch (err) {
         res.status(res.statusCode).json('Failed to display the employee')
     }

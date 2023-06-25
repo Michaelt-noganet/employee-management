@@ -2,7 +2,7 @@ import express from 'express'
 import { 
     createEmployee,
     readAllEmployee,
-    readOneEmployee,
+    selectEmployees,
     deleteOneEmployee,
     updateOneEmployee
 } from '../controllers'
@@ -10,16 +10,16 @@ import {
 const router = express.Router()
 
 // Create
-router.post('/employee', createEmployee)
+router.post('/employee/create', createEmployee)
 
 // Read
-router.get('/employees', readAllEmployee)
-router.get('/employee/:id', readOneEmployee)
+router.get('/employee/read-all', readAllEmployee)
+router.get('/employee/select', selectEmployees)
 
 // Update
-router.put('/employee', updateOneEmployee)
+router.put('/employee/update', updateOneEmployee)
 
 // Delete
-router.delete('/employee/:id', deleteOneEmployee)
+router.delete('/employee/delete', deleteOneEmployee)
 
 export default router

@@ -7,20 +7,20 @@ const getService = new GetService()
 
 export const readAllEmployee = (_req: Request<any>, res: Response<any>) => {
     try {
-        const response = getService.getAll(employees)
-        res.status(200).json(response)
+        const response = getService.apply()
+        res.status(response.status_code || res.statusCode).json(response)
     } catch (err) {
-        res.status(res.statusCode).json('Failed to display employees')
+        res.status(res.statusCode).json(err)
     }
 }
 
-export const readOneEmployee = (req: Request<any>, res: Response<any>) => {
+export const selectEmployees = (req: Request<any>, res: Response<any>) => {
     try {
-        const id: string = req.params.id
-        const response = getService.getOne(employees, id)
-        res.status(200).json(response)
+        const body: string[] | any = req.body
+        const response = getService.apply(body)
+        res.status(response.status_code || res.statusCode).json(response)
     } catch (err) {
-        res.status(res.statusCode).json('Failed to display the employee')
+        res.status(res.statusCode).json(err)
     }
 }
 
