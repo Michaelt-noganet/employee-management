@@ -13,8 +13,8 @@ const router = express.Router()
 router.post('/employee/create', createEmployee)
 
 // Read
-router.get('/employee/read-all', readAllEmployee)
-router.get('/employee/select', selectEmployees)
+router.get('/employee/read-all/:page?', readAllEmployee)
+router.get('/employee/select/:page?', selectEmployees)
 
 // Update
 router.put('/employee/update', updateOneEmployee)

@@ -19,9 +19,10 @@ export class UpdateService extends AbstractService<{ input: {[key: string]: any 
             if (!employee) {
                 throw `Employee_id: ${ id } not found`
             }
+            const [key, value] = Object.entries(input)[0]
             const newEmployee: Employee = {
                 ...employee,
-                [Object.keys(input)[0]]: Object.values(input)[0]
+                [key]: value
             }
             const result = employeeSchema.validate(newEmployee)
             const { error } = result

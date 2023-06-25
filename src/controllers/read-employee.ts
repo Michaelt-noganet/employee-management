@@ -5,9 +5,14 @@ import { employees } from '../fixtures/employees'
 
 const getService = new GetService()
 
-export const readAllEmployee = (_req: Request<any>, res: Response<any>) => {
+export const readAllEmployee = (req: Request<any>, res: Response<any>) => {
     try {
-        const response = getService.apply()
+        const page: number = parseInt(req.params.page) || 1
+        const response = getService.apply(
+            { input: {}} ,
+            undefined,
+            page
+            )
         res.status(response.status_code || res.statusCode).json(response)
     } catch (err) {
         res.status(res.statusCode).json(err)
@@ -16,8 +21,13 @@ export const readAllEmployee = (_req: Request<any>, res: Response<any>) => {
 
 export const selectEmployees = (req: Request<any>, res: Response<any>) => {
     try {
-        const body: string[] | any = req.body
-        const response = getService.apply(body)
+        const page: number = parseInt(req.params.page) || 1
+        const body: Record<string, any> = req.body
+        const response = getService.apply(
+            { input: body },
+            undefined,
+            page
+            )
         res.status(response.status_code || res.statusCode).json(response)
     } catch (err) {
         res.status(res.statusCode).json(err)

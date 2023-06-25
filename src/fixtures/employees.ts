@@ -37,5 +37,22 @@ export const employees: Employee[] = [
         supervisor: 'Sarah Netanyahu',
         emergency_contact: 'Sarah Netanyahu',
         work_schedule: '0.5 hours'
+    },
+    {
+        id: 'f90773c7-a90b-4f24-bcf6-e345477e521c5',
+        first_name: 'Poutine',
+        last_name: 'Vladimir',
+        citizen_id: '5498376251',
+        email: 'vlad.poutine@gmail.com',
+        phone_number: '0512345678',
+        date_of_birth: new Date('10/07/1952'),
+        gender: GENDER.MALE,
+        position: POSITION.DISHWASHER,
+        date_of_joining: new Date('06/22/2023'),
+        salary: 20000,
+        employment_status: EMPLOYMENT_STATUS.FULL_TIME,
+        supervisor: 'Group Wagner',
+        emergency_contact: '',
+        work_schedule: '200 hours'
     }
 ]
