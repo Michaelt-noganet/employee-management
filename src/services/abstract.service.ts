@@ -6,20 +6,18 @@ export abstract class AbstractService<TInput extends Record<string, any>> {
         input: TInput,
         ids?: string[],
         page?: number
-        ): ActionResponse
+    ): ActionResponse
 
     protected abstract applyWithParams(
         ids: string[],
         page?: number
     ): GetResponse | ActionResponse // ActionResponse for DELETE
-    
-    constructor() {}
 
     public apply(
         method: METHODS,
         input?: TInput,
         ids?: string[],
-        page?: number
+        page?: number,
     ): GetResponse | ActionResponse {
         let response: GetResponse | ActionResponse = {} as GetResponse | ActionResponse
         switch (method) {
@@ -27,7 +25,7 @@ export abstract class AbstractService<TInput extends Record<string, any>> {
             case METHODS.DELETE:
                 response = this.applyWithParams(
                     ids,
-                    page
+                    page,
                 )
                 break
             case METHODS.PATCH:
@@ -36,7 +34,7 @@ export abstract class AbstractService<TInput extends Record<string, any>> {
                 response = this.applyWithBody(
                     input,
                     ids,
-                    page
+                    page,
                 )
                 break
         }

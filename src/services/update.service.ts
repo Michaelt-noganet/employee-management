@@ -6,14 +6,16 @@ import { employeeSchema } from '../schema/employee'
 
 
 
-export class UpdateService extends AbstractService<{}> {
-    protected applyWithParams(ids: string[], page?: number): GetResponse | ActionResponse {
-        throw new Error('Method not implemented.');
+export class UpdateService extends AbstractService<object> {
+    protected applyWithParams(
+        _ids: string[], _page?: number,
+    ): GetResponse | ActionResponse {
+        throw new Error('Method not implemented.')
     }
 
     protected applyWithBody(
         input: {[key: string]: any },
-        ids: string[]
+        ids: string[],
     ): ActionResponse  {
         try {
             ids.map(id => {
@@ -24,7 +26,7 @@ export class UpdateService extends AbstractService<{}> {
                 const [key, value] = Object.entries(input)[0]
                 const newEmployee: Employee = {
                     ...employee,
-                    [key]: value
+                    [key]: value,
                 }
                 const result = employeeSchema.validate(newEmployee)
                 const { error } = result
@@ -32,6 +34,7 @@ export class UpdateService extends AbstractService<{}> {
                     throw error.message
                 }
             })
+
             return {
                 status: HTTP_STATUS.SUCCESS,
             }

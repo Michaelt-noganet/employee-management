@@ -1,7 +1,7 @@
-import { DEPARTEMENT } from "./departement"
-import { EMPLOYMENT_STATUS } from "./employement-status"
-import { GENDER } from "./gender"
-import { POSITION } from "./position"
+import { DEPARTEMENT } from './departement'
+import { EMPLOYMENT_STATUS } from './employement-status'
+import { GENDER } from './gender'
+import { POSITION } from './position'
 
 export interface BaseEmployee {
     id: string,
@@ -16,7 +16,7 @@ export interface Employee extends BaseEmployee {
     date_of_birth: Date,
     gender: GENDER,
     position?: POSITION,
-    departement?: DEPARTEMENT
+    departement?: DEPARTEMENT,
     date_of_joining?: Date,
     salary?: number,
     employment_status?: EMPLOYMENT_STATUS,

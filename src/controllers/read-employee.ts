@@ -5,23 +5,27 @@ import { METHODS } from '../types/api'
 
 const readService = new ReadService()
 
-export const readEmployees = (req: Request<any>, res: Response<any>) => {
+export const readEmployees = (
+    req: Request<any>, res: Response<any>,
+) => {
     try {
         const ids: string[] | any = req.query.ids || []
-        const page: number | any =req.query.page || 1
+        const page: number | any = req.query.page || 1
         const response = readService.apply(
             METHODS.GET,
             undefined,
             ids,
-            page
-            )
+            page,
+        )
         res.status(res.statusCode).json(response)
     } catch (err) {
         res.status(res.statusCode).json(err)
     }
 }
 
-export const findEmployees = (req: Request<any>, res: Response<any>) => {
+export const findEmployees = (
+    req: Request<any>, res: Response<any>,
+) => {
     try {
         const page: number | any = req.query.page || 1
         const body: Record<string, any> = req.body
@@ -29,8 +33,8 @@ export const findEmployees = (req: Request<any>, res: Response<any>) => {
             METHODS.POST,
             body,
             undefined,
-            page
-            )
+            page,
+        )
         res.status(res.statusCode).json(response)
     } catch (err) {
         res.status(res.statusCode).json(err)

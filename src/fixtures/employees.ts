@@ -19,7 +19,7 @@ export const employees: Employee[] = [
         employment_status: EMPLOYMENT_STATUS.FULL_TIME,
         supervisor: 'My wife',
         emergency_contact: '0522982072',
-        work_schedule: '5 hours'
+        work_schedule: '5 hours',
     },
     {
         id: 'f90773c7-a90b-4f24-bcf6-036477e521c5',
@@ -36,7 +36,7 @@ export const employees: Employee[] = [
         employment_status: EMPLOYMENT_STATUS.FULL_TIME,
         supervisor: 'Sarah Netanyahu',
         emergency_contact: 'Sarah Netanyahu',
-        work_schedule: '0.5 hours'
+        work_schedule: '0.5 hours',
     },
     {
         id: 'f90773c7-a90b-4f24-bcf6-e345477e521c5',
@@ -53,6 +53,6 @@ export const employees: Employee[] = [
         employment_status: EMPLOYMENT_STATUS.FULL_TIME,
         supervisor: 'Group Wagner',
         emergency_contact: 'CIA',
-        work_schedule: '200 hours'
-    }
+        work_schedule: '200 hours',
+    },
 ]
