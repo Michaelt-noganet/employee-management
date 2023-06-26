@@ -2,10 +2,10 @@ import express from 'express'
 
 import { 
     createEmployee,
-    readAllEmployee,
+    readEmployees,
     findEmployees,
-    deleteOneEmployee,
-    updateOneEmployee
+    deleteEmployees,
+    updateEmployees
 } from '../controllers'
 
 const router = express.Router()
@@ -14,13 +14,13 @@ const router = express.Router()
 router.post('/employee/create', createEmployee)
 
 // Read
-router.get('/employee/read', readAllEmployee)
+router.get('/employee/read', readEmployees)
 router.post('/employee/find', findEmployees)
 
 // Update
-router.patch('/employee/update', updateOneEmployee)
+router.patch('/employee/update', updateEmployees)
 
 // Delete
-router.delete('/employee/delete', deleteOneEmployee)
+router.delete('/employee/delete', deleteEmployees)
 
 export default router

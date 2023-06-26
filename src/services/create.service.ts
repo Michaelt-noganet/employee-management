@@ -5,7 +5,7 @@ import { AbstractService } from './abstract.service'
 import { v4 as uuidv4 } from 'uuid'
 import { employeeSchema } from '../schema/employee'
 
-export class PostService extends AbstractService<{}> {
+export class CreateService extends AbstractService<{}> {
     protected applyWithParams(ids: string[], page?: number): ActionResponse | GetResponse {
         throw new Error('Method not implemented.')
     }

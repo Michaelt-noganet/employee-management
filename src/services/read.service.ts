@@ -5,7 +5,7 @@ import { employees } from '../fixtures/employees'
 
 const PAGE_SIZE = 10
 
-export class GetService extends AbstractService<{}> {
+export class ReadService extends AbstractService<{}> {
     public pagination(input: any[], page: number): any[] {
         const start: number = (page - 1) * PAGE_SIZE
         const end: number = start + PAGE_SIZE

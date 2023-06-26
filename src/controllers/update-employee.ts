@@ -4,7 +4,7 @@ import { Request, Response } from 'express'
 
 const updateService = new UpdateService()
 
-export const updateOneEmployee = (req: Request<any>, res: Response<any>) => {
+export const updateEmployees = (req: Request<any>, res: Response<any>) => {
     try {
         const ids: string[] | any = req.query.ids
         const update: Record<string, any> = req.body
