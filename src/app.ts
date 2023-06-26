@@ -2,11 +2,57 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import swaggerJsdoc from 'swagger-jsdoc'
 import swaggerUi from 'swagger-ui-express'
+import winston from 'winston'
+import morgan from 'morgan'
+import Sentry from '@sentry/node'
+import helmet from 'helmet'
+import rateLimit from 'express-rate-limit'
 import router from './routes/router'
+
+const logger = winston.createLogger({
+    level: 'info',
+    format: winston.format.json(),
+    transports: [
+        new winston.transports.File({
+            filename: 'error.log',
+            level: 'error',
+        }),
+        new winston.transports.File({ filename: 'combined.log' }),
+    ],
+})
 
 const app = express()
 
+app.use(helmet())
+
 app.use(bodyParser.json())
+
+// Rate limiting middleware
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // limit each IP to 100 requests per windowMs
+})
+app.use(limiter)
+
+app.use((
+    req, _res, next,
+) => {
+    logger.info(`${ req.method } ${ req.url }`)
+    next
+})
+
+app.use(morgan('combined'))
+
+app.use((
+    err: any, _req, res: any, _next,
+) => {
+    console.error(err)
+    res.status(500).json({ error: 'Internal Server Error' })
+})
+
+Sentry.init({ dsn: 'your-sentry-dsn' })
+
+app.use(Sentry.Handlers.errorHandler())
 
 // healthcheck
 app.get(
@@ -15,18 +61,10 @@ app.get(
         _req, res,
     ) => {
         try {
-            const hrend = process.hrtime()
             const timestamp = new Date()
-            const responseTimeInSeconds = Number(hrend[0] + (hrend[1] / Math.pow(
-                10,
-                9,
-            ))).toFixed(3)
-
             const response = {
                 success: 'OK',
                 data: {
-                    upTimeInSeconds: process.uptime().toFixed(3),
-                    responseTimeInSeconds,
                     message: 'OK',
                     timestamp,
                     date: timestamp.toUTCString(),
@@ -38,7 +76,6 @@ app.get(
             const response = {
                 success: false,
                 data: {
-                    upTimeInSeconds: process.uptime().toFixed(3),
                     message: err,
                     version: process.env.DOCKER_IMAGE_VERSION || 'N/A',
                 },

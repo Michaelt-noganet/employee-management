@@ -1,6 +1,14 @@
 import http from 'http'
+import https from 'https'
+import fs from 'fs'
 import app from './app'
 
+const options = {
+    cert: fs.readFileSync('./security/certificate.pem'),
+    key: fs.readFileSync('./security/private-key.pem'),
+}
+
+const env = process.env.ENV || 'dev'
 
 const normalizePort = (val: string) => {
     const port = parseInt(
@@ -17,13 +25,23 @@ const normalizePort = (val: string) => {
 
     return false
 }
+
 const port = normalizePort(process.env.PORT || '3000')
 app.set(
     'port',
     port,
 )
 
-const server = http.createServer(app)
+let server: http.Server<typeof http.IncomingMessage, typeof http.ServerResponse> | https.Server<typeof http.IncomingMessage, typeof http.ServerResponse>
+
+if (env === 'production') {
+    server = https.createServer(
+        options,
+        app,
+    )
+} else if (env === 'dev') {
+    server = http.createServer(app)
+}
 
 const errorHandler = (error: any) => {
     if (error.syscall !== 'listen') {

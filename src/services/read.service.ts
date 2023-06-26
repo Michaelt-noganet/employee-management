@@ -77,7 +77,6 @@ export class ReadService extends AbstractService<object> {
                     result[id] = paginatedEmployees.find(employee => employee.id === id)
                 })
             } else {
-                console.log(2)
                 paginatedEmployees.forEach(employee => {
                     result[employee.id] = employee
                 })
