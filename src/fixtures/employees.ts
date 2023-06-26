@@ -52,7 +52,7 @@ export const employees: Employee[] = [
         salary: 20000,
         employment_status: EMPLOYMENT_STATUS.FULL_TIME,
         supervisor: 'Group Wagner',
-        emergency_contact: '',
+        emergency_contact: 'CIA',
         work_schedule: '200 hours'
     }
 ]

@@ -1,14 +1,15 @@
 import { employees } from '../fixtures/employees'
-import { METHODS } from '../types/api'
+import { ActionResponse, GetResponse, HTTP_STATUS } from '../types/api'
 import { AbstractService } from './abstract.service'
 
 export class DeleteService extends AbstractService<{}> {
-    protected method = METHODS.DELETE
-    protected statusCode: number;
-    protected errorMessage?: string;
-    protected applyOne(_input: Record<string, any>, id: string): { success: boolean }  {
+    protected applyWithBody(_input: {}, _ids: string[], _page?: number): GetResponse {
+        throw new Error('Method not implemented.');
+    }
+
+    protected applyWithParams(ids: string[]): ActionResponse  {
         try {
-            if (id) {
+            ids.map(id => {
                 const index: number = employees.findIndex(employee => employee.id === id)
                 if (index != -1) {
                     employees.splice(
@@ -18,14 +19,14 @@ export class DeleteService extends AbstractService<{}> {
                 } else {
                     throw 'Id not found'
                 }
-            }
+            })
             return {
-                success: true
+                status: HTTP_STATUS.SUCCESS
             }
         } catch (err) {
-            this.errorMessage = err
             return {
-                success: false
+                status: HTTP_STATUS.ERROR,
+                error: err
             }
         }
     }

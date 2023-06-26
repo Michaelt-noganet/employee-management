@@ -1,12 +1,14 @@
 import { Employee } from '../employee'
 import { HTTP_STATUS } from './http-status'
-import { METHODS } from './methods'
 
-export interface ApiResponse {
+export interface GetResponse {
     status: HTTP_STATUS,
-    action: METHODS,
-    page?: string
-    status_code?: number
-    data?: Record<string, Employee>
+    data: Record<string, Employee>
+    page: string
+    error?: any
+}
+
+export interface ActionResponse {
+    status: HTTP_STATUS,
     error?: any
 }

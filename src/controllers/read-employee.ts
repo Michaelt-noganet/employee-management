@@ -1,34 +1,38 @@
 import { GetService } from '../services'
 import { Request, Response } from 'express'
 import { employees } from '../fixtures/employees'
+import { METHODS } from '../types/api'
 
 
 const getService = new GetService()
 
 export const readAllEmployee = (req: Request<any>, res: Response<any>) => {
     try {
-        const page: number = parseInt(req.params.page) || 1
+        const ids: string[] | any = req.query.ids || []
+        const page: number | any =req.query.page || 1
         const response = getService.apply(
-            { input: {}} ,
+            METHODS.GET,
             undefined,
+            ids,
             page
             )
-        res.status(response.status_code || res.statusCode).json(response)
+        res.status(res.statusCode).json(response)
     } catch (err) {
         res.status(res.statusCode).json(err)
     }
 }
 
-export const selectEmployees = (req: Request<any>, res: Response<any>) => {
+export const findEmployees = (req: Request<any>, res: Response<any>) => {
     try {
-        const page: number = parseInt(req.params.page) || 1
+        const page: number | any = req.query.page || 1
         const body: Record<string, any> = req.body
         const response = getService.apply(
-            { input: body },
+            METHODS.POST,
+            body,
             undefined,
             page
             )
-        res.status(response.status_code || res.statusCode).json(response)
+        res.status(res.statusCode).json(response)
     } catch (err) {
         res.status(res.statusCode).json(err)
     }

@@ -1,8 +1,9 @@
 import express from 'express'
+
 import { 
     createEmployee,
     readAllEmployee,
-    selectEmployees,
+    findEmployees,
     deleteOneEmployee,
     updateOneEmployee
 } from '../controllers'
@@ -13,11 +14,11 @@ const router = express.Router()
 router.post('/employee/create', createEmployee)
 
 // Read
-router.get('/employee/read-all/:page?', readAllEmployee)
-router.get('/employee/select/:page?', selectEmployees)
+router.get('/employee/read', readAllEmployee)
+router.post('/employee/find', findEmployees)
 
 // Update
-router.put('/employee/update', updateOneEmployee)
+router.patch('/employee/update', updateOneEmployee)
 
 // Delete
 router.delete('/employee/delete', deleteOneEmployee)

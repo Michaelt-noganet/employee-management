@@ -1,3 +1,4 @@
+import { METHODS } from '../types/api'
 import { UpdateService } from '../services'
 import { Request, Response } from 'express'
 
@@ -8,10 +9,11 @@ export const updateOneEmployee = (req: Request<any>, res: Response<any>) => {
         const ids: string[] | any = req.query.ids
         const update: Record<string, any> = req.body
         const response = updateService.apply(
-            { input: update },
+            METHODS.PATCH,
+            update,
             ids
             )
-        res.status(response.status_code || res.statusCode).json(response)
+        res.status(res.statusCode).json(response)
     } catch (err) {
         res.status(res.statusCode).json(err)
     }
