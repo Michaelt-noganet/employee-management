@@ -3,6 +3,11 @@ import https from 'https'
 import fs from 'fs'
 import app from './app'
 
+const urlMapping: { [Key: string]: string } = {
+    integration: `https://${ process.env.INTEGRATION_URL }`,
+    staging: `https://${ process.env.STAGING_URL }`,
+    production: `https://${ process.env.PRODUCTION_URL }`,
+}
 
 // Determine the environment
 const env = process.env.ENV || 'dev'
@@ -39,12 +44,17 @@ if (env === 'production') {
         cert: fs.readFileSync('./security/certificate.pem'),
         key: fs.readFileSync('./security/private-key.pem'),
     }
+    // Start the server in production
     server = https.createServer(
         options,
         app,
+    ).listen(
+        parseInt(process.env.PORT),
+        urlMapping[process.env.ENV],
     )
 } else if (env === 'dev') {
-    server = http.createServer(app)
+    // Start the server in developement
+    server = http.createServer(app).listen(port)
 }
 
 // Error handler function for the server
@@ -79,6 +89,3 @@ server.on(
         console.log(`Listening on ${  bind }`)
     },
 )
-
-// Start the server
-server.listen(port)
