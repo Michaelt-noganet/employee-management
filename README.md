@@ -5,7 +5,7 @@ Welcome to the documentation for Employee-management API. This API provides vari
 ## Table of Contents
 - [Getting Started](#getting-started)
 - [Endpoints](#endpoints)
-  - [Get all employees](#get-employee(s))
+  - [Get all employees](#get-all-employees)
   - [Get Employee by ID](#get-employee-by-id)
   - [Find Employee by parameters](#find-emplyee)
   - [Create User](#create-user)
@@ -40,28 +40,26 @@ The API will be available at `http://localhost:3000/v1`.
   - `page`: number (optionnal)
 - Response:
   - Status: `200 OK`
-  - Body: {
-    "status": "SUCCESS",
-    "data": {
-        "employee_id": {
-            "id": "",
-            "first_name": "",
-            "last_name": "",
-            "citizen_id": "",
-            "email": "",
-            "phone_number": "",
-            "date_of_birth": "",
-            "gender": "",
-            "position": "",
-            "date_of_joining": "",
-            "salary": "",
-            "employment_status": "",
-            "supervisor": "string",
-            "emergency_contact": "",
-            "work_schedule": ""
-        }
-    }
-  }
+  - Body:
+    - "status": "SUCCESS",
+    - "data":
+        - "employee_id":
+            - "id": "",
+            - "first_name": "",
+            - "last_name": "",
+            - "citizen_id": "",
+            - "email": "",
+            - "phone_number": "",
+            - "date_of_birth": "",
+            - "gender": "",
+            - "position": "",
+            - "date_of_joining": "",
+            - "salary": "",
+            - "employment_status": "",
+            - "supervisor": "string",
+            - "emergency_contact": "",
+            - "work_schedule": ""
+    
 - Example without pagination:
   - HTTP: GET http://localhost:3000/v1/employee/read
   - CURL: curl --location 'http://localhost:3000/v1/employee/read' \
@@ -83,28 +81,26 @@ The API will be available at `http://localhost:3000/v1`.
   - `page`: number (optionnal)
 - Response:
   - Status: `200 OK`
-  - Body: {
-    "status": "SUCCESS",
-    "data": {
-        "employee_id": {
-            "id": "",
-            "first_name": "",
-            "last_name": "",
-            "citizen_id": "",
-            "email": "",
-            "phone_number": "",
-            "date_of_birth": "",
-            "gender": "",
-            "position": "",
-            "date_of_joining": "",
-            "salary": "",
-            "employment_status": "",
-            "supervisor": "string",
-            "emergency_contact": "",
-            "work_schedule": ""
-        }
-    }
-  }
+  - Body:
+    - "status": "SUCCESS",
+    - "data":
+        - "employee_id": 
+            - "id": "",
+            - "first_name": "",
+            - "last_name": "",
+            - "citizen_id": "",
+            - "email": "",
+            - "phone_number": "",
+            - "date_of_birth": "",
+            - "gender": "",
+            - "position": "",
+            - "date_of_joining": "",
+            - "salary": "",
+            - "employment_status": "",
+            - "supervisor": "string",
+            - "emergency_contact": "",
+            - "work_schedule": ""
+        
 - Example:
   - HTTP: GET http://localhost:3000/v1/employee/read?ids[]=6fca1a66-7c26-4924-9006-68d04eeec9b2
   - CURL: curl --location --globoff 'http://localhost:3000/v1/employee/read?ids[]=6fca1a66-7c26-4924-9006-68d04eeec9b2' \
