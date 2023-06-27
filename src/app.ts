@@ -6,7 +6,6 @@ import Sentry from '@sentry/node'
 import helmet from 'helmet'
 import logger from './middleware/production/winston'
 import limiter from './middleware/production/limiter'
-import specs from './middleware/swagger'
 import v1Router from './routes/router-v1'
 
 
@@ -49,13 +48,6 @@ if (process.env.ENV === 'production') {
     app.use(Sentry.Handlers.errorHandler())
 }
 
-// Serve Swagger UI and API documentation
-app.use(
-    '/api-docs',
-    swaggerUi.serve,
-    swaggerUi.setup(specs),
-)
-
 // Health check endpoint
 app.get(
     '/healthcheck',
@@ -88,6 +80,9 @@ app.get(
 )
 
 // Mount the router for CRUD logic
-app.use(v1Router)
+app.use(
+    '/v1',
+    v1Router,
+)
 
 export default app

@@ -15,29 +15,29 @@ const v1Router = express.Router()
 
 // Create
 v1Router.post(
-    '/v1/employee/create',
+    '/employee/create',
     createEmployee,
 )
 
 // Read
 v1Router.get(
-    '/v1/employee/read',
+    '/employee/read',
     readEmployees,
 )
 v1Router.post(
-    '/v1/employee/find',
+    '/employee/find',
     findEmployees,
 )
 
 // Update
 v1Router.patch(
-    '/v1/employee/update',
+    '/employee/update',
     updateEmployees,
 )
 
 // Delete
 v1Router.delete(
-    '/v1/employee/delete',
+    '/employee/delete',
     deleteEmployees,
 )
 
