@@ -81,7 +81,7 @@ The API will be available at `http://localhost:3000/v1`.
 - Method: `GET`
 - Description: Retrieves one or many employee by ID.
 - Query Params:
-  - `ids[]`: Array od IDs of the employee(s).
+  - `ids[]`: Array of employee's ID.
   - `page`: number (optional)
 - Response:
   - Status: `200 OK`
@@ -199,38 +199,41 @@ The API will be available at `http://localhost:3000/v1`.
     | work_schedule   | string   | no |
 - Response:
   - Status: `201 Created`
-  - Body: Created user object.
-
-  - Example:
-    - HTTP: 
-    POST `http://localhost:3000/v1/employee/create`
-
-    body: `{
-        "employee": {
-            "first_name": "Joe",
-            "last_name": "Tom",
-            "citizen_id": "123456789",
-            "email": "joe.tom@mail.com",
-            "phone_number": "0598765432",
-            "date_of_birth": "01/01/1901",
-            "gender": "OTHER"
-        }
+  - Body: 
+  `{
+    "status": "SUCCESS"
     }`
 
-    - CURL:
-    `curl --location 'http://localhost:3000/v1/employee/create' \
-    --header 'Content-Type: application/json' \
-    --data-raw '{
-        "employee": {
-            "first_name": "Joe",
-            "last_name": "Tom",
-            "citizen_id": "123456789",
-            "email": "joe.tom@mail.com",
-            "phone_number": "0598765432",
-            "date_of_birth": "01/01/1901",
-            "gender": "OTHER"
-        }
-    }'`
+- Example:
+- HTTP: 
+POST `http://localhost:3000/v1/employee/create`
+
+body: `{
+    "employee": {
+        "first_name": "Joe",
+        "last_name": "Tom",
+        "citizen_id": "123456789",
+        "email": "joe.tom@mail.com",
+        "phone_number": "0598765432",
+        "date_of_birth": "01/01/1901",
+        "gender": "OTHER"
+    }
+}`
+
+- CURL:
+`curl --location 'http://localhost:3000/v1/employee/create' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "employee": {
+        "first_name": "Joe",
+        "last_name": "Tom",
+        "citizen_id": "123456789",
+        "email": "joe.tom@mail.com",
+        "phone_number": "0598765432",
+        "date_of_birth": "01/01/1901",
+        "gender": "OTHER"
+    }
+}'`
 
 ### Update Employee(s)
 
@@ -238,7 +241,7 @@ The API will be available at `http://localhost:3000/v1`.
 - Method: `PATCH`
 - Description: Updates employee(s) by ID.
 - Query Params:
-  - `ids[]`: Array od IDs of the employee(s).
+  - `ids[]`: Array of employee's ID.
 - Request Body: `{"key": "value"}`.
 - Response:
   - Status: `200 OK`
@@ -267,7 +270,7 @@ The API will be available at `http://localhost:3000/v1`.
 - Method: `DELETE`
 - Description: Deletes employee(s) by ID.
 - Query Params:
-  - `ids[]`: Array od IDs of the employee(s).
+  - `ids[]`: Array of employee's ID.
 - Response:
   - Status: `200 OK`
   - Body: 
