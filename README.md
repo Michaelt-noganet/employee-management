@@ -7,7 +7,7 @@ Welcome to the documentation for Employee-management API. This API provides vari
 - [Endpoints](#endpoints)
   - [Get all employees](#get-all-employees)
   - [Get employee(s) by ID](#get-employees-by-id)
-  - [Find employee(s) by Parameters](#find-emplyee)
+  - [Find employee(s) by Parameters](#find-employees-by-parameters)
   - [Create employee](#create-employee)
   - [Update employee(s)](#update-employees)
   - [Delete employee(s)](#delete-employees)
