@@ -3,13 +3,11 @@ import https from 'https'
 import fs from 'fs'
 import app from './app'
 
-const options = {
-    cert: fs.readFileSync('./security/certificate.pem'),
-    key: fs.readFileSync('./security/private-key.pem'),
-}
 
+// Determine the environment
 const env = process.env.ENV || 'dev'
 
+// Normalize the port value
 const normalizePort = (val: string) => {
     const port = parseInt(
         val,
@@ -34,7 +32,13 @@ app.set(
 
 let server: http.Server<typeof http.IncomingMessage, typeof http.ServerResponse> | https.Server<typeof http.IncomingMessage, typeof http.ServerResponse>
 
+// Create the HTTP or HTTPS server based on the environment
 if (env === 'production') {
+    // Read the SSL certificate and private key from files
+    const options = {
+        cert: fs.readFileSync('./security/certificate.pem'),
+        key: fs.readFileSync('./security/private-key.pem'),
+    }
     server = https.createServer(
         options,
         app,
@@ -43,6 +47,7 @@ if (env === 'production') {
     server = http.createServer(app)
 }
 
+// Error handler function for the server
 const errorHandler = (error: any) => {
     if (error.syscall !== 'listen') {
         throw error
@@ -61,6 +66,7 @@ const errorHandler = (error: any) => {
     }
 }
 
+// Event listeners for the server
 server.on(
     'error',
     errorHandler,
@@ -74,4 +80,5 @@ server.on(
     },
 )
 
+// Start the server
 server.listen(port)

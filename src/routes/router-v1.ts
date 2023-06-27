@@ -8,6 +8,9 @@ import {
     updateEmployees,
 } from '../controllers'
 
+/**
+ * Express router for API version 1.
+ */
 const v1Router = express.Router()
 
 // Create

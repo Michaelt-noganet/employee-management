@@ -1,8 +1,11 @@
 import swaggerJsdoc from 'swagger-jsdoc'
 
+/**
+ * Swagger specification options for generating API documentation.
+ */
 const options = {
     definition: {
-        openapi: '3.1.0',
+        openapi: '3.1.0', // Specify the OpenAPI version
         info: {
             title: 'LogRocket Express API with Swagger',
             version: '0.1.0',
@@ -20,13 +23,16 @@ const options = {
         },
         servers: [
             {
-                url: 'http://localhost:3000',
+                url: 'http://localhost:3000', // Base URL of the API
             },
         ],
     },
-    apis: ['./routes/*.js'],
+    apis: ['./routes/*.js'], // Array of paths or file globs to the API route files
 }
 
+/**
+ * Swagger specification generated using the specified options.
+ */
 const specs = swaggerJsdoc(options)
 
 export default specs

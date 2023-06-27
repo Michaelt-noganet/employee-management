@@ -12,13 +12,18 @@ import v1Router from './routes/router-v1'
 
 const app = express()
 
+// Parse JSON request bodies
+app.use(bodyParser.json())
+
+// Middleware and configurations for production environment
 if (process.env.ENV === 'production') {
+    // Enable helmet for security headers
     app.use(helmet())
 
-    app.use(bodyParser.json())
-
+    // Rate limiter middleware to limit incoming requests
     app.use(limiter)
 
+    // Logging middleware
     app.use((
         req, _res, next,
     ) => {
@@ -26,8 +31,10 @@ if (process.env.ENV === 'production') {
         next
     })
 
+    // Morgan logging middleware for combined log format
     app.use(morgan('combined'))
 
+    // Error handling middleware
     app.use((
         err: any, _req, res: any, _next,
     ) => {
@@ -35,17 +42,21 @@ if (process.env.ENV === 'production') {
         res.status(500).json({ error: 'Internal Server Error' })
     })
 
+    // Initialize Sentry for error tracking
     Sentry.init({ dsn: 'your-sentry-dsn' })
+
+    // Error handler middleware for Sentry
     app.use(Sentry.Handlers.errorHandler())
 }
 
+// Serve Swagger UI and API documentation
 app.use(
     '/api-docs',
     swaggerUi.serve,
     swaggerUi.setup(specs),
 )
 
-// healthcheck
+// Health check endpoint
 app.get(
     '/healthcheck',
     (
@@ -76,7 +87,7 @@ app.get(
     },
 )
 
-// CRUD logic is in the router
+// Mount the router for CRUD logic
 app.use(v1Router)
 
 export default app

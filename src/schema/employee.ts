@@ -4,6 +4,9 @@ import { POSITION } from '../types/employee/position'
 import { DEPARTEMENT } from '../types/employee/departement'
 import { EMPLOYMENT_STATUS } from '../types/employee/employement-status'
 
+/**
+ * Joi schema for validating employee data.
+ */
 export const employeeSchema = joi.object().keys({
     id: joi
         .string()
