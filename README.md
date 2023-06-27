@@ -6,11 +6,11 @@ Welcome to the documentation for Employee-management API. This API provides vari
 - [Getting Started](#getting-started)
 - [Endpoints](#endpoints)
   - [Get all employees](#get-all-employees)
-  - [Get Employee by ID](#get-employee(s)-by-id)
-  - [Find Employee by parameters](#find-emplyee)
+  - [Get Employee(s) by ID](#get-employee(s)-by-id)
+  - [Find Employee(s) by Parameters](#find-emplyee)
   - [Create employee](#create-employee)
-  - [Update User](#update-user)
-  - [Delete User](#delete-user)
+  - [Update Employee(s)](#update-employee(s))
+  - [Delete Employee(s)](#delete-employee(s))
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -62,17 +62,17 @@ The API will be available at `http://localhost:3000/v1`.
     
 - Example without pagination:
   - HTTP: 
-  GET http://localhost:3000/v1/employee/read
+  GET `http://localhost:3000/v1/employee/read`
   - CURL: 
-  curl --location 'http://localhost:3000/v1/employee/read' \
---data ''
+  `curl --location 'http://localhost:3000/v1/employee/read' \
+--data ''`
 
 - Example with pagination:
   - HTTP: 
-  GET http://localhost:3000/v1/employee/read?page=1
+  GET `http://localhost:3000/v1/employee/read?page=1`
   - CURL: 
-  curl --location 'http://localhost:3000/v1/employee/read?page=1' \
---data ''
+  `curl --location 'http://localhost:3000/v1/employee/read?page=1' \
+--data ''`
 
 
 ### Get Employee(s) by ID
@@ -107,10 +107,10 @@ The API will be available at `http://localhost:3000/v1`.
         
 - Example:
   - HTTP: 
-  GET http://localhost:3000/v1/employee/read?ids[]=6fca1a66-7c26-4924-9006-68d04eeec9b2
+  GET `http://localhost:3000/v1/employee/read?ids[]=6fca1a66-7c26-4924-9006-68d04eeec9b2`
   - CURL: 
-  curl --location --globoff 'http://localhost:3000/v1/employee/read?ids[]=6fca1a66-7c26-4924-9006-68d04eeec9b2' \
---data ''
+  `curl --location --globoff 'http://localhost:3000/v1/employee/read?ids[]=6fca1a66-7c26-4924-9006-68d04eeec9b2' \
+--data ''`
 
 
 ### Find Employee(s) by Parameters
@@ -162,22 +162,22 @@ The API will be available at `http://localhost:3000/v1`.
 
 - Example:
   - HTTP: 
-  POST http://localhost:3000/employee/find?page=1
+  POST `http://localhost:3000/employee/find?page=1`
 
-  body: {
+  body: `{
     "gender": "MALE"
-}
+}`
 
   - CURL:
-  curl --location 'http://localhost:3000/v1/employee/find?page=1' \
+  `curl --location 'http://localhost:3000/v1/employee/find?page=1' \
 --header 'Content-Type: application/json' \
 --data '{
     "gender": "MALE"
-}'
+}'`
 
 ### Create Employee
 
-- URL: `/users`
+- URL: `/employee/create`
 - Method: `POST`
 - Description: Creates a new user.
 - Request Body: Employee object.
@@ -201,30 +201,86 @@ The API will be available at `http://localhost:3000/v1`.
   - Status: `201 Created`
   - Body: Created user object.
 
-### Update User
+  - Example:
+    - HTTP: 
+    POST `http://localhost:3000/v1/employee/create`
 
-- URL: `/users/{id}`
-- Method: `PUT`
-- Description: Updates a user by ID.
-- Parameters:
-  - `id` (path): ID of the user.
-- Request Body: Updated user object.
+    body: `{
+        "employee": {
+            "first_name": "Joe",
+            "last_name": "Tom",
+            "citizen_id": "123456789",
+            "email": "joe.tom@mail.com",
+            "phone_number": "0598765432",
+            "date_of_birth": "01/01/1901",
+            "gender": "OTHER"
+        }
+    }`
+
+    - CURL:
+    `curl --location 'http://localhost:3000/v1/employee/create' \
+    --header 'Content-Type: application/json' \
+    --data-raw '{
+        "employee": {
+            "first_name": "Joe",
+            "last_name": "Tom",
+            "citizen_id": "123456789",
+            "email": "joe.tom@mail.com",
+            "phone_number": "0598765432",
+            "date_of_birth": "01/01/1901",
+            "gender": "OTHER"
+        }
+    }'`
+
+### Update Employee(s)
+
+- URL: `/employee/update`
+- Method: `PATCH`
+- Description: Updates employee(s) by ID.
+- Query Params:
+  - `ids[]`: Array od IDs of the employee(s).
+- Request Body: `{"key": "value"}`.
 - Response:
   - Status: `200 OK`
   - Body: 
   `{
     "status": "SUCCESS"
     }`
+- Example:
+    - HTTP: 
+    PATCH `http://localhost:3000/employee/update?ids[]=f90773c7-a90b-4f24-bcf6-e345477e521c5&ids[]=f90773c7-a90b-4f24-bcf6-036477e521c5`
 
-### Delete User
+    body: `{
+    "email": "other.email@mail.com"
+}`
 
-- URL: `/users/{id}`
+    - CURL:
+    `curl --location --globoff --request PATCH 'http://localhost:3000/employee/update?ids[]=f90773c7-a90b-4f24-bcf6-e345477e521c5&ids[]=f90773c7-a90b-4f24-bcf6-036477e521c5' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "email": "other.email@mail.com"
+}'`
+
+### Delete Employee(s)
+
+- URL: `/employee/delete`
 - Method: `DELETE`
-- Description: Deletes a user by ID.
-- Parameters:
-  - `id` (path): ID of the user.
+- Description: Deletes employee(s) by ID.
+- Query Params:
+  - `ids[]`: Array od IDs of the employee(s).
 - Response:
-  - Status: `204 No Content`
+  - Status: `200 OK`
+  - Body: 
+  `{
+    "status": "SUCCESS"
+    }`
+- Example:
+    - HTTP: 
+    DELETE `http://localhost:3000/employee/delete?ids[]=f90773c7-a90b-4f24-bcf6-e345477e521c5`
+
+    - CURL:
+    `curl --location --globoff --request DELETE 'http://localhost:3000/employee/delete?ids[]=f90773c7-a90b-4f24-bcf6-e345477e521c5' \
+--data ''`
 
 ## Contributing
 
