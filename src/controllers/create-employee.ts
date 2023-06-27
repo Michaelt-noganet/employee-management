@@ -1,7 +1,7 @@
 import { Employee } from '../types/employee'
 import { CreateService } from '../services'
 import { Request, Response } from 'express'
-import { METHODS } from '../types/api'
+import { ApiResponse, HTTP_STATUS, METHODS } from '../types/api'
 
 
 const createService = new CreateService()
@@ -12,23 +12,23 @@ const createService = new CreateService()
  * @param res - The response object.
  */
 export const createEmployee = (
-    req: Request<any>,
-    res: Response<any>,
+    req: Request<object, any, { employee: Omit<Employee, 'id'> }>,
+    res: Response<ApiResponse>,
 ) => {
     try {
         // Extract the employee object from the request body
-        const employee: Omit<Employee, 'id'> = req.body.employee
+        const employee = req.body.employee
 
         // Create a new employee using the CreateService
-        const response = createService.apply(
-            METHODS.POST,
-            employee,
-        )
+        const response = createService.apply({ employee })
 
         // Send the response back to the client
         res.status(res.statusCode).json(response)
     } catch (err) {
         // If an error occurs, send the error response back to the client
-        res.status(res.statusCode).json(err)
+        res.status(res.statusCode).json({
+            status: HTTP_STATUS.ERROR,
+            error: err,
+        })
     }
 }

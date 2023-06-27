@@ -31,6 +31,7 @@ export const employeeSchema = joi.object().keys({
         .optional(),
     date_of_birth: joi
         .date()
+        .iso()
         .optional(),
     gender: joi
         .string()
@@ -46,6 +47,7 @@ export const employeeSchema = joi.object().keys({
         .optional(),
     date_of_joining: joi
         .date()
+        .iso()
         .optional(),
     salary: joi
         .number()

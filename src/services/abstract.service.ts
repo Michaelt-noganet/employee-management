@@ -1,4 +1,4 @@
-import { GetResponse, METHODS, ActionResponse } from '../types/api'
+import { ApiResponse, HTTP_STATUS } from '../types/api'
 
 /**
  * Abstract base class for implementing service classes.
@@ -6,64 +6,39 @@ import { GetResponse, METHODS, ActionResponse } from '../types/api'
  */
 export abstract class AbstractService<TInput extends Record<string, any>> {
 
-    /**
-   * Apply an action with a request body.
-   * @param input - The input data for the action.
-   * @param ids - Optional array of IDs.
-   * @param page - Optional page number.
-   * @returns The action response.
-   */
-    protected abstract applyWithBody(
-        input: TInput,
-        ids?: string[],
-        page?: number
-    ): ActionResponse
 
     /**
-   * Apply an action with request parameters.
-   * @param ids - Array of IDs.
+   * Apply an action with input parameters.
+   * @param input - The input data for the action.
    * @param page - Optional page number.
-   * @returns The action response or get response.
+   * @returns The api standard response.
    */
-    protected abstract applyWithParams(
-        ids: string[],
+    protected abstract applyAction(
+        input: TInput,
         page?: number
-    ): GetResponse | ActionResponse
+    ): ApiResponse
 
     /**
    * Apply an action based on the specified method.
-   * @param method - The HTTP method.
-   * @param input - Optional input data for the action.
-   * @param ids - Optional array of IDs.
+   * @param input - Input data for the action.
    * @param page - Optional page number.
-   * @returns The action response or get response.
+   * @returns The api standard response.
    */
     public apply(
-        method: METHODS,
-        input?: TInput,
-        ids?: string[],
+        input: TInput,
         page?: number,
-    ): GetResponse | ActionResponse {
-        let response: GetResponse | ActionResponse = {} as GetResponse | ActionResponse
-        switch (method) {
-            case METHODS.GET:
-            case METHODS.DELETE:
-                response = this.applyWithParams(
-                    ids,
-                    page,
-                )
-                break
-            case METHODS.PATCH:
-            case METHODS.POST:
-            case METHODS.PUT:
-                response = this.applyWithBody(
-                    input,
-                    ids,
-                    page,
-                )
-                break
+    ): ApiResponse  {
+        // TODO: implement access token validation logic
+        try {
+            return this.applyAction(
+                input,
+                page,
+            )
+        } catch (err) {
+            return {
+                status: HTTP_STATUS.ERROR,
+                error: err,
+            }
         }
-
-        return response
     }
 }
