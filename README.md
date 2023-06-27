@@ -41,24 +41,30 @@ The API will be available at `http://localhost:3000/v1`.
 - Response:
   - Status: `200 OK`
   - Body:
-    - "status": "SUCCESS",
-    - "data":
-        - "employee_id":
-            - "id": "",
-            - "first_name": "",
-            - "last_name": "",
-            - "citizen_id": "",
-            - "email": "",
-            - "phone_number": "",
-            - "date_of_birth": "",
-            - "gender": "",
-            - "position": "",
-            - "date_of_joining": "",
-            - "salary": "",
-            - "employment_status": "",
-            - "supervisor": "string",
-            - "emergency_contact": "",
-            - "work_schedule": ""
+   ```json
+    {
+    "status": "SUCCESS",
+     "data": {
+         "employee_id": {
+             "id": "employee_id",
+             "first_name": "Joe",
+             "last_name": "John",
+             "citizen_id": "123456789",
+             "email": "valid.mail@mail.com",
+             "phone_number": "0987654321",
+             "date_of_birth": "1949-10-21T00:00:00.000Z",
+             "gender": "MALE",
+             "position": "waiter",
+             "date_of_joining": "2022-10-21T00:00:00.000Z",
+             "salary": 20000,
+             "employment_status": "part_time",
+             "supervisor": "Suzy",
+             "emergency_contact": "Wife",
+             "work_schedule": ""
+        }
+      }
+    }
+    ```
     
 - Example without pagination:
   - HTTP: 
@@ -86,24 +92,30 @@ The API will be available at `http://localhost:3000/v1`.
 - Response:
   - Status: `200 OK`
   - Body:
-    - "status": "SUCCESS",
-    - "data":
-        - "employee_id": 
-            - "id": "",
-            - "first_name": "",
-            - "last_name": "",
-            - "citizen_id": "",
-            - "email": "",
-            - "phone_number": "",
-            - "date_of_birth": "",
-            - "gender": "",
-            - "position": "",
-            - "date_of_joining": "",
-            - "salary": "",
-            - "employment_status": "",
-            - "supervisor": "string",
-            - "emergency_contact": "",
-            - "work_schedule": ""
+   ```json
+    {
+    "status": "SUCCESS",
+     "data": {
+         "employee_id": {
+             "id": "employee_id",
+             "first_name": "Joe",
+             "last_name": "John",
+             "citizen_id": "123456789",
+             "email": "valid.mail@mail.com",
+             "phone_number": "0987654321",
+             "date_of_birth": "1949-10-21T00:00:00.000Z",
+             "gender": "MALE",
+             "position": "waiter",
+             "date_of_joining": "2022-10-21T00:00:00.000Z",
+             "salary": 20000,
+             "employment_status": "part_time",
+             "supervisor": "Suzy",
+             "emergency_contact": "Wife",
+             "work_schedule": ""
+        }
+      }
+    }
+    ```
         
 - Example:
   - HTTP: 
@@ -141,24 +153,30 @@ The API will be available at `http://localhost:3000/v1`.
 - Response:
   - Status: `200 OK`
   - Body:
-    - "status": "SUCCESS",
-    - "data":
-        - "employee_id":
-            - "id": "",
-            - "first_name": "",
-            - "last_name": "",
-            - "citizen_id": "",
-            - "email": "",
-            - "phone_number": "",
-            - "date_of_birth": "",
-            - "gender": "",
-            - "position": "",
-            - "date_of_joining": "",
-            - "salary": "",
-            - "employment_status": "",
-            - "supervisor": "string",
-            - "emergency_contact": "",
-            - "work_schedule": ""
+   ```json
+    {
+    "status": "SUCCESS",
+     "data": {
+         "employee_id": {
+             "id": "employee_id",
+             "first_name": "Joe",
+             "last_name": "John",
+             "citizen_id": "123456789",
+             "email": "valid.mail@mail.com",
+             "phone_number": "0987654321",
+             "date_of_birth": "1949-10-21T00:00:00.000Z",
+             "gender": "MALE",
+             "position": "waiter",
+             "date_of_joining": "2022-10-21T00:00:00.000Z",
+             "salary": 20000,
+             "employment_status": "part_time",
+             "supervisor": "Suzy",
+             "emergency_contact": "Wife",
+             "work_schedule": ""
+        }
+      }
+    }
+    ```
 
 - Example:
   - HTTP: 
@@ -188,10 +206,10 @@ The API will be available at `http://localhost:3000/v1`.
     | citizen_id   | string   | yes |
     | email   | Must be a valid email   | no |
     | phone_number   | Must be a valid phone number (10 numbers and start with 0)   | no |
-    | date_of_birth   | date_of_joining   | no |
+    | date_of_birth   | must be a valide date (ISO)    | no |
     | gender   | enum: "MALE", "FEMALE", "OTHER"   | no |
     | position   | enum: "chef", "sous_chef", "line_cook", "pastry_chef", "waiter", "bartender", "host", "busser", "dishwasher", "restaurant_manager", "barista", "cashier",  "expeditor",  "sommelier" | no |
-    | date_of_joining   | date_of_joining   | no |
+    | date_of_joining   | must be a valide date (ISO)   | no |
     | salary   | number   | no |
     | employment_status   | enum: "full_time", "part_time", "contract"   | no |
     | supervisor   | string   | no |
@@ -199,26 +217,31 @@ The API will be available at `http://localhost:3000/v1`.
     | work_schedule   | string   | no |
 - Response:
   - Status: `201 Created`
-  - Body: 
-  `{
+  - Body:
+  ```json
+  {
     "status": "SUCCESS"
-    }`
+  }
+  ```
 
 - Example:
 - HTTP: 
 POST `http://localhost:3000/v1/employee/create`
 
-body: `{
-    "employee": {
-        "first_name": "Joe",
-        "last_name": "Tom",
-        "citizen_id": "123456789",
-        "email": "joe.tom@mail.com",
-        "phone_number": "0598765432",
-        "date_of_birth": "01/01/1901",
-        "gender": "OTHER"
-    }
-}`
+body: 
+```json
+{
+  "employee": {
+      "first_name": "Joe",
+      "last_name": "Tom",
+      "citizen_id": "123456789",
+      "email": "joe.tom@mail.com",
+      "phone_number": "0598765432",
+      "date_of_birth": "1949-10-21T00:00:00.000Z",
+      "gender": "OTHER"
+  }
+}
+```
 
 - CURL:
 `curl --location 'http://localhost:3000/v1/employee/create' \
@@ -230,7 +253,7 @@ body: `{
         "citizen_id": "123456789",
         "email": "joe.tom@mail.com",
         "phone_number": "0598765432",
-        "date_of_birth": "01/01/1901",
+        "date_of_birth": "1949-10-21T00:00:00.000Z",
         "gender": "OTHER"
     }
 }'`
@@ -240,28 +263,48 @@ body: `{
 - URL: `/employee/update`
 - Method: `PATCH`
 - Description: Updates employee(s) by ID.
-- Query Params:
-  - `ids[]`: Array of employee's ID.
-- Request Body: `{"key": "value"}`.
+- Request Body:
+```json
+{
+"<EMPLOYEE_ID>": {
+  "<KEY>": "<VALUE>"
+  }
+}
+```
 - Response:
   - Status: `200 OK`
   - Body: 
-  `{
-    "status": "SUCCESS"
-    }`
+  ```json
+{
+  "status": "SUCCESS"
+}
+```
 - Example:
     - HTTP: 
-    PATCH `http://localhost:3000/employee/update?ids[]=f90773c7-a90b-4f24-bcf6-e345477e521c5&ids[]=f90773c7-a90b-4f24-bcf6-036477e521c5`
+    PATCH `http://localhost:3000/employee/update`
 
-    body: `{
-    "email": "other.email@mail.com"
-}`
+    body:
+```json
+{
+  "6fca1a66-7c26-4924-9006-68d04eeec9b2": {
+      "email": "other.mail@gmail.com"
+  },
+  "f90773c7-a90b-4f24-bcf6-036477e521c5": {
+      "first_name": "Cocorico"
+  }
+}
+```
 
     - CURL:
-    `curl --location --globoff --request PATCH 'http://localhost:3000/employee/update?ids[]=f90773c7-a90b-4f24-bcf6-e345477e521c5&ids[]=f90773c7-a90b-4f24-bcf6-036477e521c5' \
+    `curl --location --globoff --request PATCH 'http://localhost:3000/employee/update' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "email": "other.email@mail.com"
+  "6fca1a66-7c26-4924-9006-68d04eeec9b2": {
+      "email": "other.mail@gmail.com"
+  },
+  "f90773c7-a90b-4f24-bcf6-036477e521c5": {
+      "first_name": "Cocorico"
+  }
 }'`
 
 ### Delete Employee(s)
@@ -274,9 +317,11 @@ body: `{
 - Response:
   - Status: `200 OK`
   - Body: 
-  `{
+  ```json
+  {
     "status": "SUCCESS"
-    }`
+  }
+  ```
 - Example:
     - HTTP: 
     DELETE `http://localhost:3000/employee/delete?ids[]=f90773c7-a90b-4f24-bcf6-e345477e521c5`
