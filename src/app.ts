@@ -1,58 +1,49 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import swaggerJsdoc from 'swagger-jsdoc'
 import swaggerUi from 'swagger-ui-express'
-import winston from 'winston'
 import morgan from 'morgan'
 import Sentry from '@sentry/node'
 import helmet from 'helmet'
-import rateLimit from 'express-rate-limit'
-import router from './routes/router'
+import logger from './middleware/production/winston'
+import limiter from './middleware/production/limiter'
+import specs from './middleware/swagger'
+import v1Router from './routes/router-v1'
 
-const logger = winston.createLogger({
-    level: 'info',
-    format: winston.format.json(),
-    transports: [
-        new winston.transports.File({
-            filename: 'error.log',
-            level: 'error',
-        }),
-        new winston.transports.File({ filename: 'combined.log' }),
-    ],
-})
 
 const app = express()
 
-app.use(helmet())
+if (process.env.ENV === 'production') {
+    app.use(helmet())
 
-app.use(bodyParser.json())
+    app.use(bodyParser.json())
 
-// Rate limiting middleware
-const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // limit each IP to 100 requests per windowMs
-})
-app.use(limiter)
+    app.use(limiter)
 
-app.use((
-    req, _res, next,
-) => {
-    logger.info(`${ req.method } ${ req.url }`)
-    next
-})
+    app.use((
+        req, _res, next,
+    ) => {
+        logger.info(`${ req.method } ${ req.url }`)
+        next
+    })
 
-app.use(morgan('combined'))
+    app.use(morgan('combined'))
 
-app.use((
-    err: any, _req, res: any, _next,
-) => {
-    console.error(err)
-    res.status(500).json({ error: 'Internal Server Error' })
-})
+    app.use((
+        err: any, _req, res: any, _next,
+    ) => {
+        console.error(err)
+        res.status(500).json({ error: 'Internal Server Error' })
+    })
 
-Sentry.init({ dsn: 'your-sentry-dsn' })
+    Sentry.init({ dsn: 'your-sentry-dsn' })
+    app.use(Sentry.Handlers.errorHandler())
+}
 
-app.use(Sentry.Handlers.errorHandler())
+app.use(
+    '/api-docs',
+    swaggerUi.serve,
+    swaggerUi.setup(specs),
+)
 
 // healthcheck
 app.get(
@@ -86,42 +77,6 @@ app.get(
 )
 
 // CRUD logic is in the router
-app.use(router)
-
-const options = {
-    definition: {
-        openapi: '3.1.0',
-        info: {
-            title: 'LogRocket Express API with Swagger',
-            version: '0.1.0',
-            description:
-          'This is a simple CRUD API application made with Express and documented with Swagger',
-            license: {
-                name: 'MIT',
-                url: 'https://spdx.org/licenses/MIT.html',
-            },
-            contact: {
-                name: 'LogRocket',
-                url: 'https://logrocket.com',
-                email: 'info@email.com',
-            },
-        },
-        servers: [
-            {
-                url: 'http://localhost:3000',
-            },
-        ],
-    },
-    apis: ['./routes/*.js'],
-}
-
-const specs = swaggerJsdoc(options)
-
-app.use(
-    '/api-docs',
-    swaggerUi.serve,
-    swaggerUi.setup(specs),
-)
-
+app.use(v1Router)
 
 export default app

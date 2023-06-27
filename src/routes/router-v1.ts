@@ -8,34 +8,34 @@ import {
     updateEmployees,
 } from '../controllers'
 
-const router = express.Router()
+const v1Router = express.Router()
 
 // Create
-router.post(
-    '/employee/create',
+v1Router.post(
+    '/v1/employee/create',
     createEmployee,
 )
 
 // Read
-router.get(
-    '/employee/read',
+v1Router.get(
+    '/v1/employee/read',
     readEmployees,
 )
-router.post(
-    '/employee/find',
+v1Router.post(
+    '/v1/employee/find',
     findEmployees,
 )
 
 // Update
-router.patch(
-    '/employee/update',
+v1Router.patch(
+    '/v1/employee/update',
     updateEmployees,
 )
 
 // Delete
-router.delete(
-    '/employee/delete',
+v1Router.delete(
+    '/v1/employee/delete',
     deleteEmployees,
 )
 
-export default router
+export default v1Router
